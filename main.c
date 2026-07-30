@@ -5,6 +5,10 @@
 #include "image.h"
 #include "filters.h"
 
+void sepia(int height, int width, RGB **pixels, RGB **copy_pixels);
+void brightness_adjustment(int amount, int height, int width, RGB **pixels, RGB **copy_pixels);
+void binarization(int height, int width, RGB **pixels, RGB **copy_pixels);
+
 int get_open_filename(char* buffer, int buffer_size) {
     OPENFILENAME ofn;
     ZeroMemory(&ofn, sizeof(ofn));
@@ -167,7 +171,7 @@ int main(int argc, char* argv[])
     }
 
     int user_choice = -1;
-    printf("\nHow do you want to convert:- \n0.) Unchanged\n1.) Greyscale\n2.) Flip vertically (x,y) --> (-x,y)\n3.) Flip Horizontally (x,y) --> (x,-y)\n4.) Gaussian Blur\n5.) Edges (sobel)\nChoice: ");
+    printf("\nHow do you want to convert:- \n0.) Unchanged\n1.) Greyscale\n2.) Flip vertically (x,y) --> (-x,y)\n3.) Flip Horizontally (x,y) --> (x,-y)\n4.) Gaussian Blur\n5.) Edges (sobel)\n6.) invert(negative)\n7.) Sepia\n8.) Brightness adjustment\n9.) Binarization Choice: ");
     scanf("%d", &user_choice);
     
     if (user_choice == -1)
@@ -197,6 +201,25 @@ int main(int argc, char* argv[])
     else if (user_choice == 5)
     {
         edge_sobel( head_2.height, head_2.width, pixels, copy_pixels);
+    }
+    else if (user_choice == 6)
+    {
+        invert( head_2.height, head_2.width, pixels, copy_pixels);
+    }
+    else if (user_choice == 7)
+    {
+        sepia(head_2.height, head_2.width, pixels, copy_pixels);
+    }
+    else if (user_choice == 8)
+    {
+        int amount;
+        printf("What brightness adjustment do you want (-255 to 255): ");
+        scanf("%d", &amount);
+        brightness_adjustment(amount, head_2.height, head_2.width, pixels, copy_pixels);
+    }
+    else if (user_choice == 9)
+    {
+        binarization(head_2.height, head_2.width, pixels, copy_pixels);
     }
     else
     {

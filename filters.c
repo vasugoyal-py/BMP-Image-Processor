@@ -151,3 +151,82 @@ void edge_sobel( int height, int width, RGB **pixels, RGB **copy_pixels)
     }
 
 }
+
+void invert(int height, int width, RGB **pixels, RGB **copy_pixels)
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            copy_pixels[i][j].Red = 255 - pixels[i][j].Red;
+            copy_pixels[i][j].Green = 255 - pixels[i][j].Green;
+            copy_pixels[i][j].Blue = 255 - pixels[i][j].Blue;
+        }
+    }
+}
+
+void sepia(int height, int width, RGB **pixels, RGB **copy_pixels)
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            int original_red = pixels[i][j].Red;
+            int original_green = pixels[i][j].Green;
+            int original_blue = pixels[i][j].Blue;
+
+            int sepia_red = my_round(0.393f * original_red + 0.769f * original_green + 0.189f * original_blue);
+            int sepia_green = my_round(0.349f * original_red + 0.686f * original_green + 0.168f * original_blue);
+            int sepia_blue = my_round(0.272f * original_red + 0.534f * original_green + 0.131f * original_blue);
+
+            if (sepia_red > 255) sepia_red = 255;
+            if (sepia_green > 255) sepia_green = 255;
+            if (sepia_blue > 255) sepia_blue = 255;
+
+            copy_pixels[i][j].Red = sepia_red;
+            copy_pixels[i][j].Green = sepia_green;
+            copy_pixels[i][j].Blue = sepia_blue;
+        }
+    }
+}
+
+void brightness_adjustment(int amount, int height, int width, RGB **pixels, RGB **copy_pixels)
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            int red = pixels[i][j].Red + amount;
+            int green = pixels[i][j].Green + amount;
+            int blue = pixels[i][j].Blue + amount;
+
+            if (red > 255) red = 255;
+            if (green > 255) green = 255;
+            if (blue > 255) blue = 255;
+
+            if (red < 0) red = 0;
+            if (green < 0) green = 0;
+            if (blue < 0) blue = 0;
+
+            copy_pixels[i][j].Red = red;
+            copy_pixels[i][j].Green = green;
+            copy_pixels[i][j].Blue = blue;
+        }
+    }
+}
+
+void binarization(int height, int width, RGB **pixels, RGB **copy_pixels)
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            float avg = (float)(pixels[i][j].Red + pixels[i][j].Green + pixels[i][j].Blue) / 3.0f;
+            int value = (avg >= 128.0f) ? 255 : 0;
+
+            copy_pixels[i][j].Red = value;
+            copy_pixels[i][j].Green = value;
+            copy_pixels[i][j].Blue = value;
+        }
+    }
+}

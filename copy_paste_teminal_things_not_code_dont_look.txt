@@ -1,0 +1,23 @@
+The cd line:
+cd "/mnt/c/Users/HP/Desktop/Work related/Harward CS50X-2026/Practice_main/week_4_followe_along/complete_bitmas_from_scratch/main"
+
+to make the wsl smaller:
+export PS1='\u@\h:\W\$ '
+
+compler:
+gcc main.c image.c filters.c -o bmp_processor -lm
+
+gcc main.c image.c filters.c -o bitmap_editor.exe -static -lcomdlg32 -lm
+
+execute:
+./bmp_processor
+
+execute with sample:
+
+./bmp_processor samples/sample_640×426.bmp output/output_640×426.bmp
+
+./bmp_processor samples/sample_1280×853.bmp output/output_1280×853.bmp
+
+./bmp_processor samples/sample_1920×1280.bmp output/output_1920×1280.bmp
+
+./bmp_processor samples/sample_5184×3456.bmp output/output_5184×3456.bmp
