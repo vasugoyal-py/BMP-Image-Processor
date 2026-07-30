@@ -5,10 +5,6 @@
 #include "image.h"
 #include "filters.h"
 
-void sepia(int height, int width, RGB **pixels, RGB **copy_pixels);
-void brightness_adjustment(int amount, int height, int width, RGB **pixels, RGB **copy_pixels);
-void binarization(int height, int width, RGB **pixels, RGB **copy_pixels);
-
 int get_open_filename(char* buffer, int buffer_size) {
     OPENFILENAME ofn;
     ZeroMemory(&ofn, sizeof(ofn));
